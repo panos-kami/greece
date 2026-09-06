@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#080706">
+
+<title>For You ♡</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root{
+  --black:#080706;
+  --cream:#f4eee6;
+  --soft:#d7c8ba;
+  --accent:#b8877b;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+  background:var(--black);
+}
+
+body{
+  background:var(--black);
+  color:var(--cream);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+body.locked{
+  overflow:hidden;
+}
+
+/* ===========================
+   CINEMATIC NOISE
+=========================== */
+
+.noise{
+  position:fixed;
+  inset:-50%;
+  width:200%;
+  height:200%;
+  pointer-events:none;
+  z-index:999;
+  opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+  animation:noiseMove .18s infinite;
+}
+
+@keyframes noiseMove{
+  0%{transform:translate(0,0)}
+  25%{transform:translate(-3%,2%)}
+  50%{transform:translate(2%,-3%)}
+  75%{transform:translate(3%,3%)}
+  100%{transform:translate(-2%,-2%)}
+}
+
+/* ===========================
+   INTRO
+=========================== */
+
+#intro{
+  position:fixed;
+  inset:0;
+  z-index:900;
+  background:#050505;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:opacity 1.6s ease, visibility 1.6s;
+}
+
+.intro-inner{
+  width:90%;
+  text-align:center;
+}
+
+.intro-small{
+  font-size:10px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  opacity:.55;
+  margin-bottom:28px;
+}
+
+.intro-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(55px,17vw,95px);
+  font-weight:300;
+  line-height:.82;
+}
+
+.intro-title em{
+  font-weight:300;
+}
+
+.intro-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:19px;
+  opacity:.65;
+  margin-top:28px;
+}
+
+.start{
+  margin-top:50px;
+  border:1px solid rgba(255,255,255,.35);
+  background:transparent;
+  color:white;
+  border-radius:100px;
+  padding:16px 28px;
+  letter-spacing:3px;
+  font-size:9px;
+  cursor:pointer;
+  transition:.4s;
+}
+
+.start:active{
+  transform:scale(.95);
+  background:white;
+  color:black;
+}
+
+#intro.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+/* ===========================
+   GENERAL
+=========================== */
+
+section{
+  position:relative;
+}
+
+.chapter{
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:80px 25px;
+}
+
+.chapter-number{
+  font-size:9px;
+  letter-spacing:4px;
+  opacity:.4;
+  text-transform:uppercase;
+  margin-bottom:25px;
+}
+
+.big-serif{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  font-size:clamp(48px,15vw,85px);
+  line-height:.92;
+}
+
+.center{
+  text-align:center;
+}
+
+.fade{
+  opacity:0;
+  transform:translateY(45px);
+  transition:1.3s cubic-bezier(.2,.8,.2,1);
+}
+
+.fade.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ===========================
+   FIRST HERO
+=========================== */
+
+.hero{
+  height:110svh;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.07);
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(to bottom,rgba(0,0,0,.15),rgba(0,0,0,.05) 45%,rgba(0,0,0,.9));
+}
+
+.hero-copy{
+  position:absolute;
+  z-index:2;
+  bottom:9%;
+  left:7%;
+  right:7%;
+}
+
+.hero-copy h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(50px,15vw,90px);
+  font-weight:300;
+  line-height:.88;
+}
+
+.hero-copy p{
+  margin-top:22px;
+  font-size:12px;
+  line-height:1.8;
+  max-width:300px;
+  opacity:.75;
+}
+
+/* ===========================
+   TEXT SCENE
+=========================== */
+
+.text-scene{
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  padding:80px 9%;
+}
+
+.text-scene p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(35px,10vw,57px);
+  font-weight:300;
+  line-height:1.05;
+}
+
+.text-scene em{
+  color:var(--soft);
+}
+
+/* ===========================
+   CINEMA PHOTO
+=========================== */
+
+.cinema-photo{
+  height:100svh;
+  overflow:hidden;
+  position:relative;
+}
+
+.cinema-photo img{
+  width:100%;
+  height:115%;
+  object-fit:cover;
+  position:absolute;
+  top:-7%;
+  left:0;
+}
+
+.cinema-photo:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.55));
+}
+
+.caption{
+  position:absolute;
+  z-index:3;
+  left:7%;
+  bottom:7%;
+  max-width:82%;
+}
+
+.caption small{
+  display:block;
+  text-transform:uppercase;
+  letter-spacing:3px;
+  font-size:8px;
+  opacity:.6;
+  margin-bottom:13px;
+}
+
+.caption h2{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  font-style:italic;
+  font-size:36px;
+  line-height:1;
+}
+
+/* ===========================
+   FILM STRIP
+=========================== */
+
+.film-section{
+  padding:100px 0;
+  background:var(--cream);
+  color:#181411;
+  overflow:hidden;
+}
+
+.film-title{
+  padding:0 7%;
+  margin-bottom:55px;
+}
+
+.film-title p{
+  font-size:9px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  opacity:.5;
+}
+
+.film-title h2{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  font-size:54px;
+  margin-top:10px;
+}
+
+.film-scroll{
+  display:flex;
+  overflow-x:auto;
+  gap:18px;
+  padding:0 7% 25px;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+}
+
+.film-scroll::-webkit-scrollbar{
+  display:none;
+}
+
+.frame{
+  flex:0 0 78vw;
+  scroll-snap-align:center;
+}
+
+.frame img{
+  width:100%;
+  height:58vh;
+  object-fit:cover;
+  display:block;
+}
+
+.frame-number{
+  display:flex;
+  justify-content:space-between;
+  margin-top:13px;
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.frame-number span:last-child{
+  opacity:.45;
+}
+
+/* ===========================
+   LETTER
+=========================== */
+
+.letter-section{
+  min-height:120svh;
+  padding:120px 8%;
+  display:flex;
+  align-items:center;
+}
+
+.letter{
+  max-width:500px;
+}
+
+.letter-label{
+  text-transform:uppercase;
+  letter-spacing:5px;
+  font-size:8px;
+  opacity:.45;
+  margin-bottom:45px;
+}
+
+.letter p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:31px;
+  line-height:1.25;
+  margin-bottom:25px;
+}
+
+.letter .signature{
+  margin-top:50px;
+  font-style:italic;
+  opacity:.65;
+}
+
+/* ===========================
+   POLAROID COLLAGE
+=========================== */
+
+.collage{
+  min-height:130svh;
+  position:relative;
+  background:#d8c9ba;
+  overflow:hidden;
+}
+
+.polaroid{
+  position:absolute;
+  width:63vw;
+  max-width:330px;
+  padding:8px 8px 35px;
+  background:#f5f0e9;
+  box-shadow:0 15px 45px rgba(0,0,0,.25);
+}
+
+.polaroid img{
+  width:100%;
+  display:block;
+}
+
+.p1{
+  top:8%;
+  left:-5%;
+  transform:rotate(-7deg);
+}
+
+.p2{
+  top:34%;
+  right:-7%;
+  transform:rotate(8deg);
+}
+
+.p3{
+  top:63%;
+  left:10%;
+  transform:rotate(-4deg);
+}
+
+.collage-copy{
+  position:absolute;
+  z-index:4;
+  top:51%;
+  left:8%;
+  width:58%;
+  color:#181411;
+}
+
+.collage-copy h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:45px;
+  line-height:.95;
+  font-weight:300;
+}
+
+/* ===========================
+   MISS ME
+=========================== */
+
+.miss{
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:50px 25px;
+}
+
+.heart{
+  width:95px;
+  height:95px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:31px;
+  cursor:pointer;
+  margin:40px auto;
+  animation:heartbeat 2.2s infinite;
+  user-select:none;
+}
+
+@keyframes heartbeat{
+  0%,100%{transform:scale(1)}
+  10%{transform:scale(1.08)}
+  20%{transform:scale(1)}
+  30%{transform:scale(1.05)}
+  40%{transform:scale(1)}
+}
+
+#missText{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:31px;
+  min-height:90px;
+  max-width:320px;
+  transition:.3s;
+}
+
+/* ===========================
+   MOROCCO
+=========================== */
+
+.morocco{
+  min-height:120svh;
+  background:#9d715a;
+  color:#fff8f0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+  overflow:hidden;
+}
+
+.morocco-inner{
+  position:relative;
+}
+
+.morocco small{
+  font-size:8px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  opacity:.6;
+}
+
+.morocco h2{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  font-size:clamp(70px,23vw,125px);
+  line-height:.75;
+  margin:30px 0;
+}
+
+.morocco p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:23px;
+  font-style:italic;
+}
+
+.cross{
+  text-decoration:line-through;
+  opacity:.45;
+}
+
+/* ===========================
+   FINAL
+=========================== */
+
+.final-photo{
+  height:115svh;
+  position:relative;
+  overflow:hidden;
+}
+
+.final-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.final-photo:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.25) 45%,rgba(0,0,0,.92));
+}
+
+.final-copy{
+  position:absolute;
+  z-index:2;
+  bottom:7%;
+  left:7%;
+  right:7%;
+  text-align:center;
+}
+
+.final-copy p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;
+  font-style:italic;
+  margin-bottom:20px;
+}
+
+.final-copy h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:56px;
+  line-height:.9;
+  font-weight:300;
+}
+
+.ps{
+  margin-top:35px !important;
+  font-family:'DM Sans',sans-serif !important;
+  font-size:9px !important;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  opacity:.55;
+  line-height:1.7;
+}
+
+/* ===========================
+   END CREDITS
+=========================== */
+
+.credits{
+  height:100svh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.credits small{
+  display:block;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-size:8px;
+  opacity:.4;
+  margin-bottom:20px;
+}
+
+.credits h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:42px;
+  font-weight:300;
+}
+
+.credits p{
+  margin-top:20px;
+  font-size:10px;
+  opacity:.45;
+}
+
+.scroll-indicator{
+  position:fixed;
+  right:15px;
+  bottom:20px;
+  z-index:100;
+  font-size:8px;
+  letter-spacing:3px;
+  writing-mode:vertical-rl;
+  opacity:.4;
+  transition:.4s;
+}
+
+@media(min-width:700px){
+  body{
+    max-width:520px;
+    margin:auto;
+    box-shadow:0 0 100px #000;
+  }
+}
+</style>
+</head>
+
+<body class="locked">
+
+<div class="noise"></div>
+
+<div id="intro">
+  <div class="intro-inner">
+    <div class="intro-small">A tiny film about us</div>
+
+    <div class="intro-title">
+      I wish<br>
+      <em>you were here.</em>
+    </div>
+
+    <div class="intro-sub">
+      but until then, I made you this.
+    </div>
+
+    <button class="start" onclick="startFilm()">
+      START THE FILM
+    </button>
+  </div>
+</div>
+
+<div class="scroll-indicator" id="scrollIndicator">
+  SCROLL ↓
+</div>
+
+
+<!-- ===========================
+     OPENING SHOT
+=========================== -->
+
+<section class="hero">
+
+  <img
+    src="790512095_1588298409328409_1973136714361836828_n.jpg"
+    alt="us">
+
+  <div class="hero-copy fade">
+    <h1>
+      You were<br>
+      just here.
+    </h1>
+
+    <p>
+      And somehow everything already feels
+      a little different without you.
+    </p>
+  </div>
+
+</section>
+
+
+<!-- ===========================
+     CHAPTER 01
+=========================== -->
+
+<section class="text-scene">
+
+  <div class="fade">
+
+    <div class="chapter-number">
+      Chapter one — lately
+    </div>
+
+    <p>
+      It's weird how quickly
+      <em>ordinary moments</em>
+      can become the ones
+      you miss the most.
+    </p>
+
+  </div>
+
+</section>
+
+
+<section class="cinema-photo">
+
+  <img
+    src="790968668_1300813858660751_8448436530724635303_n.jpg"
+    class="parallax"
+    alt="us">
+
+  <div class="caption fade">
+    <small>Scene 01</small>
+    <h2>
+      Yeah… I'd go back here right now.
+    </h2>
+  </div>
+
+</section>
+
+
+<section class="cinema-photo">
+
+  <img
+    src="791974085_1561195671786139_1090450410717453193_n.jpg"
+    class="parallax"
+    alt="us">
+
+  <div class="caption fade">
+    <small>Scene 02</small>
+    <h2>
+      Very serious people.
+      Obviously.
+    </h2>
+  </div>
+
+</section>
+
+
+<!-- ===========================
+     CAMERA ROLL
+=========================== -->
+
+<section class="film-section">
+
+  <div class="film-title fade">
+    <p>Evidence that we had way too much fun</p>
+    <h2>My camera roll.</h2>
+  </div>
+
+  <div class="film-scroll">
+
+    <div class="frame">
+      <img src="792145870_1607576824178542_3456452279482432898_n.jpg">
+      <div class="frame-number">
+        <span>01 / 04</span>
+        <span>us lately</span>
+      </div>
+    </div>
+
+    <div class="frame">
+      <img src="792594928_1600674051634923_530753709594370529_n.jpg">
+      <div class="frame-number">
+        <span>02 / 04</span>
+        <span>keep this one forever</span>
+      </div>
+    </div>
+
+    <div class="frame">
+      <img src="793108583_1097428726123848_98230300911432077_n.jpg">
+      <div class="frame-number">
+        <span>03 / 04</span>
+        <span>summer with you</span>
+      </div>
+    </div>
+
+    <div class="frame">
+      <img src="793543343_2986271415058127_4694715374768895214_n.jpg">
+      <div class="frame-number">
+        <span>04 / 04</span>
+        <span>no explanation</span>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ===========================
+     CHAPTER 02
+=========================== -->
+
+<section class="chapter">
+
+  <div class="center fade">
+
+    <div class="chapter-number">
+      Chapter two
+    </div>
+
+    <div class="big-serif">
+      But jokes<br>
+      aside…
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ===========================
+     LETTER
+=========================== -->
+
+<section class="letter-section">
+
+  <div class="letter fade">
+
+    <div class="letter-label">
+      something I wanted you to know
+    </div>
+
+    <p>
+      Having you here made me really happy.
+    </p>
+
+    <p>
+      And I don't think it was because
+      of where we went or what we did.
+    </p>
+
+    <p>
+      I think I just loved having
+      <em>you</em> next to me.
+    </p>
+
+    <p>
+      Waking up together.
+      Going somewhere all the time late.
+      Laughing about stupid things(buy condoms).
+      Doing absolutely nothing.
+    </p>
+
+    <p>
+      Somehow, that was more than enough.
+    </p>
+
+    <p class="signature">
+      And now I miss it.<br>
+      I miss you.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ===========================
+     MIRROR SHOT
+=========================== -->
+
+<section class="cinema-photo">
+
+  <img
+    src="792403668_3199225550272738_3758936503111368657_n.jpg"
+    class="parallax"
+    alt="us">
+
+  <div class="caption fade">
+    <small>One of those little moments</small>
+
+    <h2>
+      Nothing special happening.<br>
+      Still one of my favorites.
+    </h2>
+  </div>
+
+</section>
+
+
+<!-- ===========================
+     COLLAGE
+=========================== -->
+
+<section class="collage">
+
+  <div class="polaroid p1">
+    <img src="793257076_4318588615022682_7814197073659554122_n.jpg">
+  </div>
+
+  <div class="polaroid p2">
+    <img src="793108583_1097428726123848_98230300911432077_n.jpg">
+  </div>
+
+  <div class="polaroid p3">
+    <img src="794529109_1107843081753563_3393407617273958376_n.jpg">
+  </div>
+
+  <div class="collage-copy fade">
+    <h2>
+      I think<br>
+      we look pretty<br>
+      good together.
+    </h2>
+  </div>
+
+</section>
+
+
+<!-- ===========================
+     MISS ME BUTTON
+=========================== -->
+
+<section class="miss">
+
+  <div class="chapter-number fade">
+    A small emergency button
+  </div>
+
+  <div class="big-serif fade">
+    For when<br>
+    you miss me.
+  </div>
+
+  <div class="heart" onclick="missMe()">
+    ♡
+  </div>
+
+  <div id="missText">
+    tap the heart
+  </div>
+
+</section>
+
+
+<!-- ===========================
+     MOROCCO
+=========================== -->
+
+<section class="morocco">
+
+  <div class="morocco-inner fade">
+
+    <small>Next destination</small>
+
+    <h2>
+      MOR<br>
+      OCCO
+    </h2>
+
+    <p>
+      <span class="cross">
+        So I guess we wait until Morocco.
+      </span>
+    </p>
+
+    <p style="margin-top:18px">
+      Or maybe earlier...
+    </p>
+
+    <div style="
+      margin-top:45px;
+      font-size:25px;
+    ">
+      ♡
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ===========================
+     FINAL PHOTO
+=========================== -->
+
+<section class="final-photo">
+
+  <img
+    src="790968668_1300813858660751_8448436530724635303_n.jpg"
+    alt="us">
+
+  <div class="final-copy fade">
+
+    <p>
+      I don't know exactly when
+      I'll have you this close again.
+    </p>
+
+    <h2>
+      I just know<br>
+      I can't wait.
+    </h2>
+
+    <p style="margin-top:30px;">
+      I miss you, Kami. ♡
+    </p>
+
+    <p class="ps">
+      more than I'm going to admit over text.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ===========================
+     CREDITS
+=========================== -->
+
+<section class="credits">
+
+  <div class="fade">
+
+    <small>
+      To be continued
+    </small>
+
+    <h3>
+      This is only the start.
+    </h3>
+
+    <p>
+      we're just waiting for more photos.
+    </p>
+
+    <div style="
+      font-family:'Cormorant Garamond',serif;
+      font-size:40px;
+      margin-top:45px;
+    ">
+      ♡
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* ===========================
+   START
+=========================== */
+
+function startFilm(){
+
+  document.getElementById("intro").classList.add("hide");
+
+  document.body.classList.remove("locked");
+
+  setTimeout(()=>{
+    document.getElementById("intro").style.display="none";
+  },1700);
+
+}
+
+
+/* ===========================
+   SCROLL REVEAL
+=========================== */
+
+const observer = new IntersectionObserver((entries)=>{
+
+  entries.forEach(entry=>{
+
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+    }
+
+  });
+
+},{
+  threshold:.18
+});
+
+document.querySelectorAll(".fade").forEach(el=>{
+  observer.observe(el);
+});
+
+
+/* ===========================
+   PARALLAX
+=========================== */
+
+window.addEventListener("scroll",()=>{
+
+  document.querySelectorAll(".parallax").forEach(img=>{
+
+    const parent = img.parentElement;
+
+    const rect = parent.getBoundingClientRect();
+
+    const progress =
+      (window.innerHeight - rect.top) /
+      (window.innerHeight + rect.height);
+
+    const move =
+      (progress - .5) * 70;
+
+    img.style.transform =
+      `translateY(${move}px) scale(1.05)`;
+
+  });
+
+});
+
+
+/* ===========================
+   MISS ME
+=========================== */
+
+const messages = [
+
+  "I miss you too.",
+
+  "Yes. Probably right now too.",
+
+  "I'd rather be annoying you in person.",
+
+  "Come back please.",
+
+  "No, Morocco isn't coming fast enough.",
+
+  "I would choose one more day with you right now.",
+
+  "Okay fine… I miss your face.",
+
+  "You better be smiling right now.",
+
+  "Distance is extremely overrated.",
+
+  "Or maybe I'll come to you. ;)"
+
+];
+
+let messageIndex = 0;
+
+function missMe(){
+
+  const text =
+    document.getElementById("missText");
+
+  text.style.opacity = "0";
+  text.style.transform = "translateY(8px)";
+
+  setTimeout(()=>{
+
+    text.innerHTML =
+      messages[messageIndex];
+
+    text.style.opacity = "1";
+    text.style.transform = "translateY(0)";
+
+    messageIndex++;
+
+    if(messageIndex >= messages.length){
+      messageIndex = 0;
+    }
+
+  },250);
+
+}
+
+
+/* ===========================
+   SCROLL INDICATOR
+=========================== */
+
+window.addEventListener("scroll",()=>{
+
+  const indicator =
+    document.getElementById("scrollIndicator");
+
+  if(window.scrollY > 300){
+    indicator.style.opacity="0";
+  }
+
+});
+
+</script>
+
+</body>
+</html>
